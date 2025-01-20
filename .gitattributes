@@ -1,0 +1,4 @@
+modules/home-manager/dotfiles/ssh/keys.d/alcide_rsa filter=sops
+modules/home-manager/dotfiles/ssh/keys.d/builder_ed25519 filter=sops
+modules/home-manager/dotfiles/ssh/keys.d/codespaces.auto filter=sops
+modules/home-manager/dotfiles/ssh/keys.d/podman-machine-default filter=sops

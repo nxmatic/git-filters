@@ -1,0 +1,8 @@
+#!/usr/bin/env -S bash
+
+handle() {
+  sops:decrypt "$1"
+}
+
+# Source the utility script
+source "$(realpath "$(dirname "${BASH_SOURCE[0]}")")/sops-utils.rc"

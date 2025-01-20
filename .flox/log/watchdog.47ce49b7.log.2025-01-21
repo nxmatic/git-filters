@@ -1,0 +1,14 @@
+2025-01-21T23:54:42.467093Z DEBUG flox_watchdog::sentry: No Sentry DSN set, skipping Sentry initialization
+2025-01-21T23:54:42.467167Z DEBUG watchdog{socket="/Users/stephane.lacoin/.xdg/flox.c145ee03.sock" log_dir="/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log"}: flox_watchdog: starting
+2025-01-21T23:54:42.467195Z DEBUG watchdog{socket="/Users/stephane.lacoin/.xdg/flox.c145ee03.sock" log_dir="/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log"}: flox_watchdog: checked socket path="/Users/stephane.lacoin/.xdg/flox.c145ee03.sock" exists=false
+2025-01-21T23:54:42.467202Z  INFO watchdog{socket="/Users/stephane.lacoin/.xdg/flox.c145ee03.sock" log_dir="/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log"}: flox_watchdog: watchdog is on duty this_pid=99842 target_activation_id="47ce49b7"
+2025-01-21T23:54:42.467234Z DEBUG flox_watchdog::logger: still watching, woof woof
+2025-01-21T23:54:42.467237Z DEBUG watchdog{socket="/Users/stephane.lacoin/.xdg/flox.c145ee03.sock" log_dir="/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log"}: flox_watchdog: waiting for termination
+2025-01-21T23:54:42.469157Z DEBUG flox_watchdog::logger: deleted log path=/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log/watchdog.c40b862b.log.2025-01-17
+2025-01-21T23:54:42.469691Z DEBUG flox_watchdog::logger: deleted log path=/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log/watchdog.c40b862b.log.2025-01-18
+2025-01-21T23:54:45.514935Z DEBUG watchdog{socket="/Users/stephane.lacoin/.xdg/flox.c145ee03.sock" log_dir="/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log"}: flox_watchdog::process: no output from /bin/ps, treating as not running pid=99825
+2025-01-21T23:54:45.517674Z DEBUG watchdog{socket="/Users/stephane.lacoin/.xdg/flox.c145ee03.sock" log_dir="/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log"}: flox_watchdog::process: no output from /bin/ps, treating as not running pid=99825
+2025-01-21T23:54:45.517695Z  INFO watchdog{socket="/Users/stephane.lacoin/.xdg/flox.c145ee03.sock" log_dir="/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log"}: flox_watchdog: running cleanup after all PIDs terminated
+2025-01-21T23:54:45.517711Z DEBUG watchdog{socket="/Users/stephane.lacoin/.xdg/flox.c145ee03.sock" log_dir="/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log"}: flox_watchdog: running cleanup
+2025-01-21T23:54:45.517719Z DEBUG watchdog{socket="/Users/stephane.lacoin/.xdg/flox.c145ee03.sock" log_dir="/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log"}: flox_watchdog: did not shut down process-compose reason="no socket"
+2025-01-21T23:54:45.518235Z DEBUG watchdog{socket="/Users/stephane.lacoin/.xdg/flox.c145ee03.sock" log_dir="/Volumes/GitHub/nxmatic/nix-darwin-home/.flox/log"}: flox_watchdog: finished cleanup

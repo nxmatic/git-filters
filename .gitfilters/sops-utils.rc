@@ -1,0 +1,52 @@
+#!/usr/bin/env -S bash
+
+typeset -A SCRIPT
+
+SCRIPT[name]=$( basename "${BASH_SOURCE[0]}" )
+SCRIPT[path]="${BASH_SOURCE[0]}"
+
+# Function to check if .sops.yaml exists
+sops:check_sops_yaml() {
+    [[ -f .sops.yaml ]]
+}
+
+# Function to extract file patterns from .sops.yaml
+sops:extract_file_patterns() {
+    local filePatterns
+    filePatterns=( $( yq eval '.creation_rules.[].path_regex' .sops.yaml ) )
+    
+    # Create an array to hold matched files
+    matchedFiles=()
+    
+    # Loop through each pattern and find matching files
+    for pattern in "${filePatterns[@]}"; do
+      matchedFiles+=( "$( find . -type f -printf '%P\n' | grep -E "$pattern" )" )
+    done
+    
+    # Return the matched files array
+    echo "${matchedFiles[@]}"
+}
+
+# Function to process each matched file with a specified operation function
+sops:process_matched_files() {
+    local operation="$1"
+    local matchedFiles=( $(sops:extract_file_patterns) )
+
+    for file in "${matchedFiles[@]}"; do
+        "$operation" "$file"
+    done
+
+}
+
+
+# Function to decrypt the input stream
+sops:decrypt() {
+    sops --decrypt --filename-override="~~~${SCRIPT[name]}~~~" --input-type=binary /dev/stdin
+}
+
+# Function to encrypt the input stream
+sops:encrypt() {
+    sops --encrypt --filename-override="~~~${SCRIPT[name]}~~~" --input-type=binary /dev/stdin
+}
+
+

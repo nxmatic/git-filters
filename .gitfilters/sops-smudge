@@ -1,0 +1,4 @@
+#!/usr/bin/env -S bash
+
+source "$(realpath "$(dirname "${BASH_SOURCE[0]}")")/sops-utils.rc"
+sops:decrypt
