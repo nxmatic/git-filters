@@ -4,15 +4,11 @@
 test -n "${GIT_TRACE:-}" && set -x
 
 # Exit if the operation and file names were not given
-<<<<<<<< HEAD:git-sops.sh
 test $# -ge 2
 
 # Exit if no stdin available.
 # stdin is used to fed sops with the content to encrypt / decrypt.
 test ! -t 0
-========
-test $# -ge 1
->>>>>>>> 94b6eab (fixup git-filters):sops.sh
 
 git::sops:input:yq:format() {
   case "${META[fileExt]}" in
@@ -80,57 +76,23 @@ git::sops() {
   esac
 }
 
-declare -A SCRIPT
-
-SCRIPT[name]="$( basename $0 )"
-SCRIPT[dir]="$( dirname $0 )"
-
-if [[ -h "${0}" ]]; then
-  OP=${0##*-}
-  FORMAT=${0##*sops-} &&
-    FORMAT=${FORMAT%%[-]*}
-  FILE="$1"
-
-  case "$OP" in
-    "textconv")
-      exec <"${FILE}"
-      ;;
-    *)
-      ;;
-  esac
-  
-  exec "$( realpath $0 )" $OP $FORMAT "${@}"
-fi
-
-# Exit if no stdin available.
-# stdin is used to fed sops with the content to encrypt / decrypt.
-test ! -t 0
-
 # First arg passed to script.
 # clean is meant to call sops encrypt
 # smudge is meant to call sops decrypt
 OP="${1}"
-FORMAT="${2}"
-FILE="${3}"
 
 # Second arg passed to script
 # The file name is fed to sops --filename-override so that sops can apply the creation_rules
 # based on .sops.yaml file in the root of the repo.
 declare -A META=(
-  [filePath]="${FILE}"
-  [fileName]="$( basename "${FILE}" )"
-  [fileExt]="${FILE##*.}"
-  [fileFormat]="${FORMAT}"
+  [fileName]="$( basename "${2}" )"
+  [fileExt]="${2##*.}"
 )
 
 # Third arg passed to script
-<<<<<<<< HEAD:git-sops.sh
 META[fileFormat]=${3:-$( git::sops:input:yq:format ${META[fileExt]} )}
 
 if [[ -n "${META[fileFormat]}" && "${META[fileFormat]}" != "unsupported" ]]; then
-========
-if [[ -n "${META[fileFormat]}" && "${META[fileFormat]}" != "unstructured" ]]; then
->>>>>>>> 94b6eab (fixup git-filters):sops.sh
   git::sops::encrypt() {
     yq -o yaml eval . /dev/stdin |
       sops --encrypt --input-type yaml --filename-override "${META[fileName]}" /dev/stdin
@@ -162,16 +124,12 @@ case "${OP}" in
       git::sops show "${DECRYPTED}"
     fi
     ;;
-<<<<<<<< HEAD:git-sops.sh
   "clean")
-========
-  "textconv"|"clean")
->>>>>>>> 94b6eab (fixup git-filters):sops.sh
     # Either the file was not committed yet, or the existing decrypted content is different
     # from the input, in which case we output the new encrypted input.
     # If the file was commited and its decrypted content is the same as the new input,
     # output the old encrypted content.
-    ENCRYPTED_HEAD_CONTENTS="$( git cat-file -p "HEAD:${META[filePath]}" 2>/dev/null || true )"
+    ENCRYPTED_HEAD_CONTENTS="$( git cat-file -p "HEAD:${META[fileName]}" 2>/dev/null || true )"
     DECRYPTED_HEAD_CONTENTS="$( git::sops decrypt <<<"${ENCRYPTED_HEAD_CONTENTS}" )"
     
     INPUT="$( cat /dev/stdin )"
